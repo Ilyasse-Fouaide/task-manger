@@ -3,7 +3,7 @@ const tasks = require("./routes/tasks.routes");
 
 const app = express();
 
-app.use("/api/v1", tasks);
+app.use("/api/v1/tasks", tasks);
 app.all("*", (req, res) => {
   res.status(404).json({
     success: false,
