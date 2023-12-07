@@ -3,7 +3,7 @@ const { Schema, model } = require("mongoose");
 const taskSchema = new Schema({
   name: {
     type: String,
-    required: [true, "the name is required"],  // custom message
+    required: [true, "task name required"],  // custom message
     trim: true,
     minlength: [6, "must be at least 6 character"],
     maxlength: [20, "max length is 20 character"],
