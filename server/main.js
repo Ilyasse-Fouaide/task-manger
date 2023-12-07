@@ -5,6 +5,7 @@ const app = express();
 
 // middlewares
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 // routes
 app.use("/api/v1/tasks", tasks);
