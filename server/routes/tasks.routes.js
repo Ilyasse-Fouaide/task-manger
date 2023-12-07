@@ -7,6 +7,7 @@ router.route("/")
   .post(tasks.store);
 
 router.route("/:id")
-  .get(tasks.show);
+  .get(tasks.show)
+  .delete(tasks.destroy);
 
 module.exports = router;

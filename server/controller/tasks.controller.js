@@ -9,3 +9,7 @@ module.exports.store = (req, res) => {
 module.exports.show = (req, res) => {
   res.status(200).json({ message: "show task." });
 }
+
+module.exports.destroy = (req, res) => {
+  res.status(200).json({ message: "delete task." });
+}
