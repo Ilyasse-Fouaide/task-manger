@@ -4,6 +4,12 @@ const tasks = require("./routes/tasks.routes");
 const app = express();
 
 app.use("/api/v1", tasks);
+app.all("*", (req, res) => {
+  res.status(404).json({
+    success: false,
+    message: `no route match with ${req.originalUrl}`
+  })
+})
 
 const port = 3000;
 
