@@ -25,8 +25,16 @@ module.exports.store = async (req, res) => {
   }
 }
 
-module.exports.show = (req, res) => {
-  res.status(200).json({ message: "show task." });
+module.exports.show = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const task = await Task.findById(id, { __v: 0 });
+
+    res.status(200).json({ success: true, task });
+  } catch (error) {
+    res.status(500).json({ success: false, error });
+  }
 }
 
 module.exports.update = (req, res) => {
