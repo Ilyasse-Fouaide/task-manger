@@ -5,11 +5,15 @@ module.exports.index = (req, res) => {
 }
 
 module.exports.store = async (req, res) => {
-  const task = await Task.create({
-    name: "Task-01",
-    completed: false,
-  });
-  res.status(201).json({ success: true, task });
+  try {
+    const task = await Task.create({
+      name: "Task-01",
+      completed: false,
+    });
+    res.status(201).json({ success: true, task });
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }
 
 module.exports.show = (req, res) => {
