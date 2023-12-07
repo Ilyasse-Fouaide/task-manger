@@ -1,9 +1,15 @@
+const Task = require("../models/tasks.model");
+
 module.exports.index = (req, res) => {
   res.status(200).json({ message: "Get All tasks" })
 }
 
-module.exports.store = (req, res) => {
-  res.status(200).json({ message: "Create task." });
+module.exports.store = async (req, res) => {
+  const task = await Task.create({
+    name: "Task-01",
+    completed: false,
+  });
+  res.status(201).json({ success: true, task });
 }
 
 module.exports.show = (req, res) => {
