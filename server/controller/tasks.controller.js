@@ -7,10 +7,15 @@ module.exports.index = (req, res) => {
 module.exports.store = async (req, res) => {
   try {
     const { name } = req.body;
+
+    if (!name) {
+      return res.status(400).json({ success: false, message: "task name required" });
+    }
+
     const task = await Task.create({ name });
     res.status(201).json({ success: true, task });
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json({ success: false, error });
   }
 }
 
