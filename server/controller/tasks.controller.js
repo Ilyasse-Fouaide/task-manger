@@ -1,7 +1,13 @@
 const Task = require("../models/tasks.model");
 
-module.exports.index = (req, res) => {
-  res.status(200).json({ message: "Get All tasks" })
+module.exports.index = async (req, res) => {
+  try {
+    const tasks = await Task.find({}, { __v: 0 });
+
+    res.status(200).json({ success: true, tasks });
+  } catch (error) {
+    res.status(500).json({ success: false, error });
+  }
 }
 
 module.exports.store = async (req, res) => {
