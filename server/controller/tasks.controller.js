@@ -6,10 +6,8 @@ module.exports.index = (req, res) => {
 
 module.exports.store = async (req, res) => {
   try {
-    const task = await Task.create({
-      name: "Task-01",
-      completed: false,
-    });
+    const { name } = req.body;
+    const task = await Task.create({ name });
     res.status(201).json({ success: true, task });
   } catch (error) {
     res.status(500).json(error);
