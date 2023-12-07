@@ -45,6 +45,18 @@ module.exports.update = (req, res) => {
   res.status(200).json({ message: "update task." });
 }
 
-module.exports.destroy = (req, res) => {
-  res.status(200).json({ message: "delete task." });
+module.exports.destroy = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const task = await Task.findByIdAndDelete(id);
+
+    if (!task) {
+      return res.status(400).json({ success: false, message: "Task not found" });
+    }
+
+    res.status(200).json({ success: true });
+  } catch (error) {
+    res.status(500).json({ success: false, error });
+  }
 }
