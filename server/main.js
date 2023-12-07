@@ -1,6 +1,9 @@
 const express = require("express");
 const tasks = require("./routes/tasks.routes");
 const connect = require("./db/connect");
+const dotenv = require("dotenv")
+
+dotenv.config();
 
 const app = express();
 
@@ -20,6 +23,6 @@ app.all("*", (req, res) => {
   })
 })
 
-const port = 3000;
+const port = process.env.PORT || 3001;
 
 app.listen(port, () => console.log("listening..."));
