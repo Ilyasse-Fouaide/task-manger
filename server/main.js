@@ -1,7 +1,11 @@
 const express = require("express");
 const tasks = require("./routes/tasks.routes");
+const connect = require("./db/connect");
 
 const app = express();
+
+// connect to the db
+connect();
 
 // middlewares
 app.use(express.urlencoded({ extended: false }));
