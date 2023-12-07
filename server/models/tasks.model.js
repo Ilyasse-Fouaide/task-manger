@@ -5,6 +5,7 @@ const taskSchema = new Schema({
     type: String,
     required: [true, "the name is required"],  // custom message
     trim: true,
+    maxlength: [20, "max length is 20 character"],
   },
   completed: {
     type: Boolean,
