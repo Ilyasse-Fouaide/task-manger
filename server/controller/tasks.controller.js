@@ -31,6 +31,10 @@ module.exports.show = async (req, res) => {
 
     const task = await Task.findById(id, { __v: 0 });
 
+    if (!task) {
+      return res.status(400).json({ success: false, message: "Task not found" });
+    }
+
     res.status(200).json({ success: true, task });
   } catch (error) {
     res.status(500).json({ success: false, error });
