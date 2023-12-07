@@ -5,5 +5,5 @@ const taskSchema = new Schema({
   completed: Boolean,
 });
 
-const Task = model("task", taskSchema);
+const Task = model("tasks", taskSchema);
 module.exports = Task;
