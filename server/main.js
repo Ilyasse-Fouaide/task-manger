@@ -3,6 +3,10 @@ const tasks = require("./routes/tasks.routes");
 
 const app = express();
 
+// middlewares
+app.use(express.urlencoded({ extended: false }));
+
+// routes
 app.use("/api/v1/tasks", tasks);
 app.all("*", (req, res) => {
   res.status(404).json({
