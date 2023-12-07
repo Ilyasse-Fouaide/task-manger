@@ -10,6 +10,10 @@ module.exports.show = (req, res) => {
   res.status(200).json({ message: "show task." });
 }
 
+module.exports.update = (req, res) => {
+  res.status(200).json({ message: "update task." });
+}
+
 module.exports.destroy = (req, res) => {
   res.status(200).json({ message: "delete task." });
 }

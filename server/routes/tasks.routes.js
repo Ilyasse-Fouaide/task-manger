@@ -8,6 +8,7 @@ router.route("/")
 
 router.route("/:id")
   .get(tasks.show)
+  .put(tasks.update)
   .delete(tasks.destroy);
 
 module.exports = router;
