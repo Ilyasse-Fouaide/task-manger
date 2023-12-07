@@ -5,7 +5,11 @@ const taskSchema = new Schema({
     type: String,
     required: [true, "the name is required"]  // custom message
   },
-  completed: Boolean,
+  completed: {
+    type: Boolean,
+    default: false,
+    required: false,
+  },
 });
 
 const Task = model("tasks", taskSchema);
