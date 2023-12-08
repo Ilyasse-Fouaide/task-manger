@@ -4,3 +4,8 @@ class CustomError extends Error {
     this.status = status;
   }
 }
+
+const customError = (message, status) => {
+  const error = new CustomError(message, status);
+  return error;
+}
