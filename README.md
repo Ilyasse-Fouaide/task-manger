@@ -4,9 +4,6 @@ This is a small full-stack task management application built with Node.js, Expre
 
 Features:
 - Create, read, update, and delete tasks
-- search tasks
-- update tasks
-- delete tasks
 - Mark tasks as completed
 
 Technology Stack:
