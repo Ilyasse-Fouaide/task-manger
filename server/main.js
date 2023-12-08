@@ -1,7 +1,8 @@
 const express = require("express");
 const tasks = require("./routes/tasks.routes");
 const connect = require("./db/connect");
-const dotenv = require("dotenv")
+const dotenv = require("dotenv");
+const errorHandler = require("./middleware/errorHandler");
 
 dotenv.config();
 
@@ -20,8 +21,11 @@ app.all("*", (req, res) => {
   res.status(404).json({
     success: false,
     message: `no route match with ${req.originalUrl}`
-  })
-})
+  });
+});
+
+// use error handler middleware
+app.use(errorHandler);
 
 const port = process.env.PORT || 5001;
 
