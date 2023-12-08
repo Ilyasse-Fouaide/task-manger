@@ -3,7 +3,7 @@ const asyncWrapper = (cb) => {
     try {
       await cb(req, res, next);
     } catch (error) {
-      res.status(500).json({ success: false, error });
+      next(error);
     }
   }
 }
