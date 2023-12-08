@@ -17,13 +17,15 @@ module.exports.store = asyncWrapper(async (req, res) => {
   res.status(201).json({ success: true, task });
 });
 
-module.exports.show = asyncWrapper(async (req, res) => {
+module.exports.show = asyncWrapper(async (req, res, next) => {
   const { id } = req.params;
 
   const task = await Task.findById(id, { __v: 0 });
 
   if (!task) {
-    return res.status(400).json({ success: false, message: "Task not found" });
+    const error = new Error("Task not found");
+    error.status = 404;
+    return next(error);
   }
 
   res.status(200).json({ success: true, task });
