@@ -10,4 +10,4 @@ const customError = (message, status) => {
   return error;
 }
 
-module.exports = customError;
+module.exports = { CustomError, customError };
