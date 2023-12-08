@@ -1,6 +1,6 @@
 # Task Manager Application
 
-This is a small full-stack task management application built with Node.js, Express.js, MongoDB, React.js, Vite and TypeScript.front-end i used ReactJs + Vite + TypeScript.
+This is a small full-stack task management application built with Node.js, Express.js, MongoDB, React.js, Vite and TypeScript. front-end i used ReactJs + Vite + TypeScript.
 
 **Features**:
 - Create, read, update, and delete tasks
