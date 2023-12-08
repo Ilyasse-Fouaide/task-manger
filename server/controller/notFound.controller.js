@@ -1,5 +1,5 @@
+const { customError } = require("../errors/customError");
+
 module.exports.notFound = (req, res, next) => {
-  const error = new Error(`no route match with ${req.originalUrl}`);
-  error.status = 404;
-  next(error);
+  next(customError(`no route match with ${req.originalUrl}`, 404));
 }

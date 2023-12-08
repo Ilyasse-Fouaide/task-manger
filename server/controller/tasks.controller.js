@@ -1,5 +1,6 @@
 const Task = require("../models/tasks.model");
 const asyncWrapper = require("../middleware/asyncWrapper");
+const { customError } = require("../errors/customError");
 
 module.exports.index = asyncWrapper(async (req, res) => {
   const tasks = await Task.find({}, { __v: 0 });
@@ -23,9 +24,7 @@ module.exports.show = asyncWrapper(async (req, res, next) => {
   const task = await Task.findById(id, { __v: 0 });
 
   if (!task) {
-    const error = new Error("Task not found");
-    error.status = 404;
-    return next(error);
+    return next(customError("Task not found", 404));
   }
 
   res.status(200).json({ success: true, task });
@@ -43,7 +42,7 @@ module.exports.update = asyncWrapper(async (req, res) => {
   const task = await Task.findById(taskId, { __v: 0 });
 
   if (!task) {
-    return res.status(404).json({ success: false, message: "Task not found" });
+    return next(customError("Task not found", 404));
   }
 
   const newTask = await Task.findByIdAndUpdate(taskId, { name, completed }, { new: true, runValidators: true });
@@ -57,7 +56,7 @@ module.exports.destroy = asyncWrapper(async (req, res) => {
   const task = await Task.findByIdAndDelete(id);
 
   if (!task) {
-    return res.status(404).json({ success: false, message: "Task not found" });
+    return next(customError("Task not found", 404));
   }
 
   res.status(200).json({ success: true });
