@@ -1,5 +1,3 @@
-const { CustomError } = require("../errors/customError");
-
 const errorHandler = (err, req, res, next) => {
   return res.status(err.status).json({
     success: false,
