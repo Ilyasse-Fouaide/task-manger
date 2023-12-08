@@ -1,14 +1,10 @@
 const Task = require("../models/tasks.model");
+const asyncWrapper = require("../middleware/asyncWrapper");
 
-module.exports.index = async (req, res) => {
-  try {
-    const tasks = await Task.find({}, { __v: 0 });
-
-    res.status(200).json({ success: true, tasks });
-  } catch (error) {
-    res.status(500).json({ success: false, error });
-  }
-}
+module.exports.index = asyncWrapper(async (req, res) => {
+  const tasks = await Task.find({}, { __v: 0 });
+  res.status(200).json({ success: true, tasks });
+});
 
 module.exports.store = async (req, res) => {
   try {
