@@ -1,5 +1,5 @@
 const errorHandler = (err, req, res, next) => {
-  res.status(500).json({
+  res.status(err.status).json({
     success: false,
     error: {
       status: err.status,

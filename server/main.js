@@ -2,6 +2,7 @@ const express = require("express");
 const tasks = require("./routes/tasks.routes");
 const connect = require("./db/connect");
 const dotenv = require("dotenv");
+const { notFound } = require("./controller/notFound.controller");
 const errorHandler = require("./middleware/errorHandler");
 
 dotenv.config();
@@ -17,12 +18,7 @@ app.use(express.json());
 
 // routes
 app.use("/api/v1/tasks", tasks);
-app.all("*", (req, res) => {
-  res.status(404).json({
-    success: false,
-    message: `no route match with ${req.originalUrl}`
-  });
-});
+app.use(notFound);
 
 // use error handler middleware
 app.use(errorHandler);
