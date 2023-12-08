@@ -2,11 +2,11 @@
 
 This is a small full-stack task management application built with Node.js, Express.js, MongoDB, React.js, Vite and TypeScript.front-end i used ReactJs + Vite + TypeScript.
 
-Features:
+**Features**:
 - Create, read, update, and delete tasks
 - Mark tasks as completed
 
-Technology Stack:
+**Technology Stack**:
 - Backend: Node.js, Express.js, MongoDB
 - Frontend: React.js, Vite, TypeScript
 
