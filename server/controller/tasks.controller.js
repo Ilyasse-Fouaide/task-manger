@@ -6,74 +6,57 @@ module.exports.index = asyncWrapper(async (req, res) => {
   res.status(200).json({ success: true, tasks });
 });
 
-module.exports.store = async (req, res) => {
-  try {
-    const { name } = req.body;
+module.exports.store = asyncWrapper(async (req, res) => {
+  const { name } = req.body;
 
-    if (!name) {
-      return res.status(400).json({ success: false, message: "task name required" });
-    }
-
-    const task = await Task.create({ name });
-    res.status(201).json({ success: true, task });
-  } catch (error) {
-    res.status(500).json({ success: false, error });
+  if (!name) {
+    return res.status(400).json({ success: false, message: "task name required" });
   }
-}
 
-module.exports.show = async (req, res) => {
-  try {
-    const { id } = req.params;
+  const task = await Task.create({ name });
+  res.status(201).json({ success: true, task });
+});
 
-    const task = await Task.findById(id, { __v: 0 });
+module.exports.show = asyncWrapper(async (req, res) => {
+  const { id } = req.params;
 
-    if (!task) {
-      return res.status(400).json({ success: false, message: "Task not found" });
-    }
+  const task = await Task.findById(id, { __v: 0 });
 
-    res.status(200).json({ success: true, task });
-  } catch (error) {
-    res.status(500).json({ success: false, error });
+  if (!task) {
+    return res.status(400).json({ success: false, message: "Task not found" });
   }
-}
 
-module.exports.update = async (req, res) => {
-  try {
-    const { id: taskId } = req.params;
-    const { name } = req.body;
-    const { completed } = req.body;
+  res.status(200).json({ success: true, task });
+});
 
-    if (!taskId) {
-      return res.status(400).json({ success: false, message: "Task Id required." });
-    }
+module.exports.update = asyncWrapper(async (req, res) => {
+  const { id: taskId } = req.params;
+  const { name } = req.body;
+  const { completed } = req.body;
 
-    const task = await Task.findById(taskId, { __v: 0 });
-
-    if (!task) {
-      return res.status(404).json({ success: false, message: "Task not found" });
-    }
-
-    const newTask = await Task.findByIdAndUpdate(taskId, { name, completed }, { new: true, runValidators: true });
-
-    res.status(200).json({ id: taskId, newTask });
-
-  } catch (error) {
-    res.status(500).json({ success: false, error });
+  if (!taskId) {
+    return res.status(400).json({ success: false, message: "Task Id required." });
   }
-}
 
-module.exports.destroy = async (req, res) => {
-  try {
-    const { id } = req.params;
+  const task = await Task.findById(taskId, { __v: 0 });
 
-    const task = await Task.findByIdAndDelete(id);
-
-    if (!task) {
-      return res.status(404).json({ success: false, message: "Task not found" });
-    }
-
-    res.status(200).json({ success: true });
-  } catch (error) {
-    res.status(500).json({ success: false, error });
+  if (!task) {
+    return res.status(404).json({ success: false, message: "Task not found" });
   }
-}
+
+  const newTask = await Task.findByIdAndUpdate(taskId, { name, completed }, { new: true, runValidators: true });
+
+  res.status(200).json({ id: taskId, newTask });
+});
+
+module.exports.destroy = asyncWrapper(async (req, res) => {
+  const { id } = req.params;
+
+  const task = await Task.findByIdAndDelete(id);
+
+  if (!task) {
+    return res.status(404).json({ success: false, message: "Task not found" });
+  }
+
+  res.status(200).json({ success: true });
+});
