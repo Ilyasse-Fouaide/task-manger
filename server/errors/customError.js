@@ -9,3 +9,5 @@ const customError = (message, status) => {
   const error = new CustomError(message, status);
   return error;
 }
+
+module.exports = customError;
