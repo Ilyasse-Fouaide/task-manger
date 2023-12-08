@@ -41,8 +41,29 @@ module.exports.show = async (req, res) => {
   }
 }
 
-module.exports.update = (req, res) => {
-  res.status(200).json({ message: "update task." });
+module.exports.update = async (req, res) => {
+  try {
+    const { id: taskId } = req.params;
+    const { name } = req.body;
+    const { completed } = req.body;
+
+    if (!taskId) {
+      return res.status(400).json({ success: false, message: "Task Id required." });
+    }
+
+    const task = await Task.findById(taskId, { __v: 0 });
+
+    if (!task) {
+      return res.status(404).json({ success: false, message: "Task not found" });
+    }
+
+    const newTask = await Task.findByIdAndUpdate(taskId, { name, completed }, { new: true, runValidators: true });
+
+    res.status(200).json({ id: taskId, newTask });
+
+  } catch (error) {
+    res.status(500).json({ success: false, error });
+  }
 }
 
 module.exports.destroy = async (req, res) => {
@@ -52,7 +73,7 @@ module.exports.destroy = async (req, res) => {
     const task = await Task.findByIdAndDelete(id);
 
     if (!task) {
-      return res.status(400).json({ success: false, message: "Task not found" });
+      return res.status(404).json({ success: false, message: "Task not found" });
     }
 
     res.status(200).json({ success: true });
